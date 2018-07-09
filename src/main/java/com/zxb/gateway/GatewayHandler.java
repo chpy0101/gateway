@@ -41,13 +41,13 @@ public class GatewayHandler {
         CoreAdvice coreAdvice = actionPlugins.getCoreAdvice();
         if (coreAdvice == null)
             return null;
-        Object resBody = coreAdvice.proxyTransRequest(actionPlugins.getProxyUrl(), reqBody, servletRequest);
+        String resBody = coreAdvice.proxyTransRequest(actionPlugins.getProxyUrl(), reqBody, servletRequest);
         //后置处理器
         BehindAdvice behindAdvice = actionPlugins.getBehindAdvice();
-        if (behindAdvice != null) {
-            resBody = behindAdvice.advice(resBody);
-        }
-        return JsonMapper.instance().readValue(resBody.toString(), Object.class);
+
+        return behindAdvice != null ?
+                behindAdvice.advice(resBody) :
+                JsonMapper.instance().readValue(resBody.toString(), Object.class);
     }
 
     private Object getRequestBody(HttpServletRequest request) {

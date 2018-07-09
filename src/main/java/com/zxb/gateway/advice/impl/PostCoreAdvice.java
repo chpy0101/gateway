@@ -5,14 +5,12 @@ import com.zxb.gateway.util.HttpHelper;
 import com.zxb.gateway.util.JsonMapper;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
 
 public class PostCoreAdvice implements CoreAdvice {
 
     @Override
-    public Object proxyTransRequest(String proxyUrl, Object body, HttpServletRequest servlet) throws Exception {
+    public String proxyTransRequest(String proxyUrl, Object body, HttpServletRequest servlet) throws Exception {
 
         String contentType = servlet.getContentType();
         //json无改动直接透传。避免序列化最优性能
@@ -41,4 +39,5 @@ public class PostCoreAdvice implements CoreAdvice {
         }
         return "";
     }
+
 }

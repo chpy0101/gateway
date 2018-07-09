@@ -10,7 +10,7 @@ import java.util.Map;
 public class GetCoreAdvice implements CoreAdvice {
 
     @Override
-    public Object proxyTransRequest(String proxyUrl, Object body, HttpServletRequest servlet) throws Exception {
+    public String proxyTransRequest(String proxyUrl, Object body, HttpServletRequest servlet) throws Exception {
         Map<String, String> param = (Map) body;
         if (param == null) {
             StringBuilder sb = new StringBuilder();
