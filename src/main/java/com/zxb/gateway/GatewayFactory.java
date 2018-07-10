@@ -29,7 +29,7 @@ public enum GatewayFactory {
 
     private void createActionMap() {
         try {
-            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("/gatewayConfig.json");
+            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("gatewayConfig.json");
             byte[] byt = new byte[stream.available()];
             stream.read(byt);
             List<GatewayConfig> configs = JsonMapper.instance().readValue(byt, new TypeReference<List<GatewayConfig>>() {
@@ -41,19 +41,19 @@ public enum GatewayFactory {
                 ActionPlugins plugin = new ActionPlugins();
                 plugin.setProxyUrl(config.getProxyUrl());
                 //自定义过滤器
-                if (config.getFilterClassName() != null) {
+                if (config.getFilterClassName() != null && config.getFilterClassName().size() > 0) {
                     plugin.setFilterAdvice(createInstance(config.getFilterClassName()));
                 }
                 //前置处理器
-                if (config.getPreAdviceClassName() != null) {
+                if (config.getPreAdviceClassName() != null && !config.getPreAdviceClassName().isEmpty()) {
                     plugin.setPreAdvice((PreAdvice) Class.forName(config.getPreAdviceClassName()).newInstance());
                 }
                 //后置处理器
-                if (config.getBehindAdviceClassName() != null) {
+                if (config.getBehindAdviceClassName() != null && !config.getBehindAdviceClassName().isEmpty()) {
                     plugin.setBehindAdvice((BehindAdvice) Class.forName(config.getBehindAdviceClassName()).newInstance());
                 }
                 //核心处理器
-                if (config.getCoreAdviceName() != null && config.getCoreAdviceName().isEmpty()) {
+                if (config.getCoreAdviceName() != null && !config.getCoreAdviceName().isEmpty()) {
                     plugin.setCoreAdvice((CoreAdvice) Class.forName(config.getCoreAdviceName()).newInstance());
                 } else {
                     //默认核心处理器分为get和post

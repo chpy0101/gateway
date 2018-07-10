@@ -31,7 +31,7 @@ public class GatewayHandler {
                     return null;
         }
         //请求实体
-        Object reqBody = getRequestBody(servletRequest);
+        GatewayRequest reqBody = getRequestBody(servletRequest);
         //前置处理器
         PreAdvice preAdvice = actionPlugins.getPreAdvice();
         if (preAdvice != null) {
@@ -50,14 +50,16 @@ public class GatewayHandler {
                 JsonMapper.instance().readValue(resBody.toString(), Object.class);
     }
 
-    private Object getRequestBody(HttpServletRequest request) {
-        Object reqBody;
-        reqBody = request.getParameterMap();
-        if (((Map) reqBody).size() < 1 && request.getContentLength() > 0) {
+    private GatewayRequest getRequestBody(HttpServletRequest request) {
+        GatewayRequest reqBody = new GatewayRequest();
+        //键对值
+        reqBody.setMapParams(request.getParameterMap());
+        //流数据模块
+        if (request.getContentLength() > 0) {
             byte[] jsonByte = new byte[request.getContentLength()];
             try {
                 request.getInputStream().read(jsonByte);
-                reqBody = jsonByte;
+                reqBody.setJsonContentByte(jsonByte);
             } catch (Exception ex) {
             }
         }

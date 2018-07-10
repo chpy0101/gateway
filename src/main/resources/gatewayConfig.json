@@ -1,4 +1,17 @@
-{
-  "actionName": "aaaa",
-  "proxyUrl": "https://www.baidu.com"
-}
+[
+  {
+    "actionName": "AddBank",
+    "proxyUrl": "http://localhost:8081/rest/v1/user/cert/addBank",
+    "requestType": "POST",
+    "filterClassName": [
+    ],
+    "preAdviceClassName": "com.zxb.gateway.test.IncomeListPreAdvice",
+    "coreAdviceName": "",
+    "behindAdviceClassName": ""
+  },
+  {
+    "actionName": "incomeList",
+    "proxyUrl": "http://localhost:8081/rest/v1/bill/income/list",
+    "requestType": "POST"
+  }
+]

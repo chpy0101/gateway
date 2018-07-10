@@ -1,5 +1,7 @@
 package com.zxb.gateway.advice;
 
+import com.zxb.gateway.GatewayRequest;
+
 public interface PreAdvice {
-    Object advice(Object request);
+    GatewayRequest advice(GatewayRequest request);
 }
