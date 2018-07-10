@@ -14,6 +14,8 @@ public class PostCoreAdvice implements CoreAdvice {
     public String proxyTransRequest(String proxyUrl, GatewayRequest body, HttpServletRequest servlet) throws Exception {
 
         String contentType = servlet.getContentType();
+        proxyUrl += ("?" + servlet.getQueryString());
+
         //json无改动直接透传。避免序列化最优性能
         if (body.getJsonContentByte() != null) {
             return HttpHelper.doPost(proxyUrl, contentType, body.getJsonContentByte());
