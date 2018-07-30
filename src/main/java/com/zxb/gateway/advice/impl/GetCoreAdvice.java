@@ -12,7 +12,7 @@ public class GetCoreAdvice implements CoreAdvice {
 
     @Override
     public String proxyTransRequest(String proxyUrl, GatewayRequest body, HttpServletRequest servlet) throws Exception {
-        Map<String, String> param = (Map) body;
+        Map<String, String> param = (Map) body.getMapParams();
         if (param == null) {
             StringBuilder sb = new StringBuilder();
             for (Map.Entry item : param.entrySet()) {

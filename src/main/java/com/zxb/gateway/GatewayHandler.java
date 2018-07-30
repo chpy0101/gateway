@@ -56,11 +56,12 @@ public class GatewayHandler {
         GatewayRequest reqBody = new GatewayRequest();
         //键对值
         Enumeration<String> keys = request.getParameterNames();
-        Map<String,String> params = new HashMap<>();
-        while (keys.hasMoreElements()){
-            String key  = keys.nextElement();
-            params.put(key,request.getParameter(key));
+        Map<String, String> params = new HashMap<>();
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            params.put(key, request.getParameter(key));
         }
+        reqBody.setMapParams(params);
         //流数据模块
         if (request.getContentLength() > 0) {
             byte[] jsonByte = new byte[request.getContentLength()];

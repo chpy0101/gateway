@@ -62,7 +62,7 @@ public enum GatewayFactory {
                 actionPluginsMap.put(config.getActionName(), plugin);
             }
         } catch (IOException e) {
-            throw new RuntimeException("未配置");
+            throw new RuntimeException("未配置 +" + e.getMessage());
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
