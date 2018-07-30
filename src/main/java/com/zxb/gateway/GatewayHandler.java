@@ -8,6 +8,8 @@ import com.zxb.gateway.filter.GatewayFilter;
 import com.zxb.gateway.util.JsonMapper;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +55,12 @@ public class GatewayHandler {
     private GatewayRequest getRequestBody(HttpServletRequest request) {
         GatewayRequest reqBody = new GatewayRequest();
         //键对值
-        reqBody.setMapParams(request.getParameterMap());
+        Enumeration<String> keys = request.getParameterNames();
+        Map<String,String> params = new HashMap<>();
+        while (keys.hasMoreElements()){
+            String key  = keys.nextElement();
+            params.put(key,request.getParameter(key));
+        }
         //流数据模块
         if (request.getContentLength() > 0) {
             byte[] jsonByte = new byte[request.getContentLength()];
