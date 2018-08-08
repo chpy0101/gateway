@@ -37,7 +37,7 @@ public class GatewayHandler {
         //前置处理器
         PreAdvice preAdvice = actionPlugins.getPreAdvice();
         if (preAdvice != null) {
-            reqBody = preAdvice.advice(reqBody);
+            reqBody = preAdvice.advice(reqBody, servletRequest);
         }
         //核心处理器
         CoreAdvice coreAdvice = actionPlugins.getCoreAdvice();
