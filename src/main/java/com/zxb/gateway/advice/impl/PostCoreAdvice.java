@@ -14,7 +14,7 @@ public class PostCoreAdvice implements CoreAdvice {
     public String proxyTransRequest(String proxyUrl, GatewayRequest body, HttpServletRequest servlet) throws Exception {
 
         String contentType = servlet.getContentType();
-        proxyUrl += ("?" + servlet.getQueryString() == null ? "" : servlet.getQueryString());
+        proxyUrl += "?" + (servlet.getQueryString() == null ? "" : servlet.getQueryString());
 
         //有前置处理器时
         if (body.getMapParams() != null) {
